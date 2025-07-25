@@ -24,7 +24,7 @@
 ### Create Lambda Function
 **Path:** Lambda → Functions → Create function
 - **Author from scratch**
-- **Function name:** `mass-resource-creation-classifier`
+- **Function name:** `Classifier_MassResourceCreation`
 - **Runtime:** Python 3.9
 - **Architecture:** x86_64
 - Click **Create function**
