@@ -49,6 +49,10 @@
 - **Modular Design**
     
     Easily extendable with additional Lambda functions or logic components
+
+## Result
+<img width="904" height="278" alt="image" src="https://github.com/user-attachments/assets/c5523e55-3380-48c7-9b77-c521998eef58" />
+
     
 
 ## Future Work
