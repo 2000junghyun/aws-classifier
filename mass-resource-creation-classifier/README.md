@@ -47,7 +47,10 @@
 - **Modular Design**
     
     Cleanly separated logic for better extensibility and maintainability
-    
+
+## Result
+<img width="618" height="434" alt="image2" src="https://github.com/user-attachments/assets/a31753f1-baa9-41a5-89f3-1e7e731083cd" />
+
 
 ## Future Work
 
