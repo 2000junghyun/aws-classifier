@@ -1,10 +1,9 @@
-# Malicious file classifier
+# Malicious File Classifier
 
 ## Overview
 
-This project implements an **malware classifier pipeline** triggered by file uploads to an AWS S3 bucket. It performs **static analysis** using multiple detection techniques to classify files as malicious or benign.
-
-The core logic is built into an **AWS Lambda function**, which sequentially invokes modular analyzers such as **Threat Intelligence (TI) lookup**, **metadata classification**, **content signature comparison**, and **fuzzy hash similarity detection**.
+- A static malware analysis pipeline automatically triggered when a file is uploaded to an S3 bucket
+- Performs **Threat Intelligence (TI) matching**, **metadata-based classification**, **content signature comparison**, and **fuzzy hash similarity analysis** via AWS Lambda
 
 ## Tech Stack
 
@@ -19,82 +18,78 @@ The core logic is built into an **AWS Lambda function**, which sequentially invo
 
 ## Directory Structure
 
-```
+```bash
 .
-├── lambda_function.py                 # Main Lambda entry point
-├── run_lambda.py
-├── fuzzy_hash_db/
+├── lambda_function.py                 # Lambda entry point
+├── run_lambda.py                      # Local test runner
+├── fuzzy_hash_db/                     # Fuzzy hash DB for similarity analysis
 └── utils/
      ├── static_analyzer/
-     │   ├── ext_filter.py             # Extension-based filtering
+     │   ├── ext_filter.py             # Extension-based filter
      │   ├── mime_checker.py           # MIME type checker
      │   └── size_checker.py           # File size filter
-     ├── ti_checker.py                 # Threat Intelligence lookup logic
-     ├── metadata_classifier.py        # Core logic for metadata classification
-     ├── content_signature_checker.py  # YARA-like signature comparison logic
-     └── fuzzy_hash_analyzer.py        # Similarity detection via ssdeep
+     ├── ti_checker.py                 # Threat Intelligence lookup module
+     ├── metadata_classifier.py        # Metadata-based classification logic
+     ├── content_signature_checker.py  # Signature-based matching logic
+     └── fuzzy_hash_analyzer.py        # ssdeep-based similarity analyzer
+
 ```
 
 ## How to Use
-
-### Prerequisites
-
-- Python 3.9+
-- Install dependencies:
-
-```bash
-pip install -r requirements.txt
-```
 
 ### Local Testing
 
 ```bash
 python run_lambda.py
+
 ```
 
-This simulates an S3 event using `test_files/event.json`.
+- Simulates an S3 event using `test_files/event.json`
 
 ### Deploy to AWS
 
-1. Zip the Lambda handler and dependencies:
+1. Zip Lambda code and dependencies:
     
     ```bash
     zip -r lambda_package.zip lambda_function.py utils/ modules/ fuzzy_hash_db/
+    
     ```
     
-2. Upload to AWS Lambda and set S3 event as the trigger.
+2. Upload to AWS Lambda and set an S3 event as the trigger
 
-> Make sure to configure appropriate IAM roles and access policies for S3 read permissions.
+> Ensure the Lambda role has proper IAM policies to access the S3 bucket
+> 
 
 ## Features / Main Logic
 
 - **TI Lookup**
     
-    Checks the uploaded file against threat intelligence databases.
+    Checks if the uploaded file matches known malicious indicators from threat intel sources
     
 - **Metadata Classification**
     
-    Analyzes static features (size, extension, MIME type, etc.) and classifies the file using rule-based heuristics.
+    Analyzes static file properties (e.g., size, extension, MIME type) and applies rule-based classification
     
 - **Content Signature Matching**
     
-    Compares the file's content against known malicious patterns.
+    Compares file contents against known malicious signature patterns
     
 - **Fuzzy Hash Comparison**
     
-    Uses `ssdeep` hashing to measure similarity to known malware samples in the fuzzy hash database.
+    Uses the `ssdeep` algorithm to assess similarity to known malware samples
     
-- **Extensible Architecture**
+- **[+] Extensible Architecture**
     
-    Additional modules (e.g. AI-based analysis, ATS integration) can be easily added in the pipeline.
+    Additional analysis modules (e.g., AI-based, ATS) can be easily integrated into the pipeline
     
 
 ## Future Work
 
-- Integrate **AI-based content analysis**
-- Implement **ATS (Automated Threat Scoring) module**
+- Integrate AI-based content analysis
+- Implement ATS (Automated Threat Scoring) module
 - Provide a web frontend for file submission and result visualization
 
 ## Motivation / Impact
 
-This project simulates a **cloud-native static malware analysis system** optimized for speed, modularity, and scalability. It offers a practical demonstration of **security automation**, combining **signature**, **heuristic**, and **intelligence-based** approaches in a serverless architecture.
+- Simulates a **cloud-native static malware analysis system** designed for performance, modularity, and extensibility
+- Combines signature-, heuristic-, and intelligence-based methods to achieve **automated threat detection in a serverless architecture**
