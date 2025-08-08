@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project implements an **AI-assisted malware analysis pipeline** triggered by file uploads to an AWS S3 bucket. It performs **static analysis** using multiple detection techniques to classify files as malicious or benign.
+This project implements an **malware classifier pipeline** triggered by file uploads to an AWS S3 bucket. It performs **static analysis** using multiple detection techniques to classify files as malicious or benign.
 
 The core logic is built into an **AWS Lambda function**, which sequentially invokes modular analyzers such as **Threat Intelligence (TI) lookup**, **metadata classification**, **content signature comparison**, and **fuzzy hash similarity detection**.
 
@@ -16,14 +16,12 @@ The core logic is built into an **AWS Lambda function**, which sequentially invo
     - Metadata Classification
     - Content Signature Comparison
     - Fuzzy Hash Similarity Check
-- Custom detection modules (`utils/`, `modules/`)
-- Dataset: `fuzzy_hash_db/`
 
 ## Directory Structure
 
 ```
 .
-├── lambda_function.py              # Main Lambda entry point
+├── lambda_function.py                 # Main Lambda entry point
 ├── run_lambda.py
 ├── fuzzy_hash_db/
 └── utils/
@@ -61,16 +59,12 @@ This simulates an S3 event using `test_files/event.json`.
 1. Zip the Lambda handler and dependencies:
     
     ```bash
-    bash
-    CopyEdit
     zip -r lambda_package.zip lambda_function.py utils/ modules/ fuzzy_hash_db/
-    
     ```
     
 2. Upload to AWS Lambda and set S3 event as the trigger.
 
 > Make sure to configure appropriate IAM roles and access policies for S3 read permissions.
-> 
 
 ## Features / Main Logic
 
@@ -80,7 +74,7 @@ This simulates an S3 event using `test_files/event.json`.
     
 - **Metadata Classification**
     
-    Analyzes static features (size, extension, MIME type, etc.) and classifies the file using rule-based heuristics or ML-based logic.
+    Analyzes static features (size, extension, MIME type, etc.) and classifies the file using rule-based heuristics.
     
 - **Content Signature Matching**
     
@@ -99,7 +93,6 @@ This simulates an S3 event using `test_files/event.json`.
 
 - Integrate **AI-based content analysis**
 - Implement **ATS (Automated Threat Scoring) module**
-- Add real-time alerting via SNS or Slack
 - Provide a web frontend for file submission and result visualization
 
 ## Motivation / Impact
