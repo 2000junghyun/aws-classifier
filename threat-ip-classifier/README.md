@@ -31,16 +31,6 @@
 - If the IP is not in the list, the event is ignored
 - If the IP matches a known threat, response Lambda functions are invoked
 
-## Environment Variables
-
-| Variable Name | Description |
-| --- | --- |
-| `THREAT_IP_BUCKET` | Name of the S3 bucket containing the IP list |
-| `THREAT_IP_KEY` | S3 object key for the IP list |
-| `RESPONSER_LAMBDA_ARN` | ARN of Lambda to disable access keys |
-| `RESPONSER_LAMBDA_ARN_2` | ARN of Lambda to restrict IAM policy |
-| `NOTIFIER_LAMBDA_ARN` | ARN of Lambda to send notifications |
-| `LOGGER_LAMBDA_ARN` | ARN of Lambda to log the event |
 
 ## Features / Main Logic
 
